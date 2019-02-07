@@ -1,3 +1,9 @@
+#
+#   Name: discord-bot-ronaldino
+#   Author: Goncalo "Marantesss" Marantes
+#   Version: 1.0
+#
+
 import discord
 
 # create discord client
