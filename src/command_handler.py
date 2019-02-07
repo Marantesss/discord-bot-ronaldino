@@ -35,14 +35,14 @@ class CommandHandler:
                     # command has no arguments
                     if command["args_num"] == 0:
                         # returns the results of the function
-                        return self.client.send_message(message.channel, str(command["function"](message, self.client, args)))
+                        return self.client.send_message(message.channel, str(command["function"](message, self, args)))
                     # command has one or more arguments
                     elif len(args) >= command["args_num"]:
                         # return the results of the function
-                        return self.client.send_message(message.channel, str(command["function"](message, self.client, args)))
+                        return self.client.send_message(message.channel, str(command["function"](message, self, args)))
                     # command has less arguments than expected
                     else:
                         # return argument error
-                        return self.client.send_message(message.channel, "ERROR: command \"{}\" requires {} argument(s): \"{}\"".format(command["trigger"], command["args_num"], ', '.join(command["args_name"])))
+                        return self.client.send_message(message.channel, ":no_entry: **ERROR** :no_entry: : command \"{}\" requires {} argument(s): \"{}\"".format(command["trigger"], command["args_num"], ', '.join(command["args_name"])))
                 else:
                     break

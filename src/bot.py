@@ -1,7 +1,7 @@
 #
 #   Name: discord-bot-ronaldino
 #   Author: Goncalo "Marantesss" Marantes
-#   Version: 1.0
+#   Version: 0.2
 #
 
 # An API wrapper for Discord written in Python.
@@ -26,7 +26,7 @@ Creating commands for the bot
 
 ## help command
 ch.add_command({
-    "trigger": "+commands",
+    "trigger": "+help",
     "function": commands.help_command,
     "args_num": 0,
     "args_name": [],
@@ -36,8 +36,8 @@ ch.add_command({
 ch.add_command({
     "trigger": "+hello",
     "function": commands.hello_command,
-    "args_num": 1,
-    "args_name": ["string"],
+    "args_num": 0,
+    "args_name": [],
     "description": "I will respond hello right back at ya!"
 })
 ## info command
@@ -55,6 +55,14 @@ ch.add_command({
     "args_num": 1,
     "args_name": ["IP/Domain"],
     "description": "Feel like a hacker? I will tell you everything I can about an IP address!"
+})
+## weather command
+ch.add_command({
+    "trigger": "+weather",
+    "function": commands.weather_command,
+    "args_num": 1,
+    "args_name": ["Location"],
+    "description": "Oh crap, is it raining outside? Why bother looking out the window when you can simply ask me!"
 })
 
 # bot is ready
