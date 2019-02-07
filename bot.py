@@ -4,13 +4,58 @@
 #   Version: 1.0
 #
 
+# An API wrapper for Discord written in Python.
 import discord
+# A module containing a class for command handling
+from command_handler import CommandHandler
+# A module containing a list of all commands
+import commands
 
 # create discord client
 client = discord.Client()
 
 # bot token
-token = "NTQyMDY2NjEwODc4MjgzODAw.Dzorpw.3RohsSVdbsKywlK4XXF2UOq2Yqg"
+token = "XXXXXX"
+
+# create the CommandHandler object and pass it the client
+ch = CommandHandler(client)
+
+'''
+Creating commands for the bot
+'''
+
+## help command
+ch.add_command({
+    "trigger": "+commands",
+    "function": commands.help_command,
+    "args_num": 0,
+    "args_name": [],
+    "description": "I will tell you everything I can do!"
+})
+## hello command
+ch.add_command({
+    "trigger": "+hello",
+    "function": commands.hello_command,
+    "args_num": 1,
+    "args_name": ["string"],
+    "description": "I will respond hello right back at ya!"
+})
+## info command
+ch.add_command({
+    "trigger": "+info",
+    "function": commands.info_command,
+    "args_num": 0,
+    "args_name": [],
+    "description": "I will tell you more about myself and the wonderful life of a bot!"
+})
+## ip command
+ch.add_command({
+    "trigger": "+ip",
+    "function": commands.ip_command,
+    "args_num": 1,
+    "args_name": ["IP/Domain"],
+    "description": "Feel like a hacker? I will tell you everything I can about an IP address!"
+})
 
 # bot is ready
 @client.event
@@ -28,21 +73,22 @@ async def on_ready():
 # on new message
 @client.event
 async def on_message(message):
-	# print message content
-	# await message.content
-    # we do not want the bot to respond to itself
+    # we do not want the bot to respond to itself, duh
     if message.author == client.user:
         return
-    # Hello
-    if message.content.startswith("+hello"):
-        msg = "Hello {0.author.mention}".format(message)
-        await client.send_message(message.channel, msg)
-    # Information
-    if message.content.startswith("+info"):
-        msg = "Thank you {0.author.mention} for wanting to know more about me :yum:\n".format(message)
-        msg += "I am currently being built with much love, but I still have a long way to go!\n"
-        msg += "If you happen to come accross any bugs or want a new feature to be implemented, please do say so! :desktop:"
-        await client.send_message(message.channel, msg)
+    # but we do want it to respond to other clients
+    else:
+        # looking for a command trigger
+        try:
+            await ch.command_handler(message)
+        # message does not contain a trigger
+        except TypeError:
+            # do nothing
+            pass
+        # generic Python error
+        except Exception as e:
+            print(e)
+        
 
 # start bot
 client.run(token)
