@@ -13,7 +13,7 @@ import commands
 import json
 
 # getting top secret information
-with open("src/settings.json") as settingsFile:
+with open("settings.json") as settingsFile:
 	settings = json.load(settingsFile)
 
 # create discord client
