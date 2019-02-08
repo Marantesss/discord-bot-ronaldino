@@ -1,5 +1,7 @@
 # RonalDino Discord Bot
 
+This is my first discord bot made with python. My friends and I are always fooling around on Discord, so that gave me the idea of building this here bot. The main goal of this project is to learn more about bot development as well as Python libraries and APIs.
+
 ## APIs Used
 
 ### IP-API
@@ -30,3 +32,7 @@ pip install websockets==6.0
 ```
 pip install aiohttp==3.5.4
 ```
+
+## Acknowledgments
+
+* Hat tip to [Areadrill](https://github.com/Areadrill)

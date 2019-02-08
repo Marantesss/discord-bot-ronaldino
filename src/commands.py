@@ -4,6 +4,10 @@
 import requests
 import json
 
+# getting top secret information
+with open("src/settings.json") as settingsFile:
+	settings = json.load(settingsFile)
+
 def hello_command(message, handler, args):
     try:
         return "Hello {}, have a wonderful day :ok_hand:".format(message.author.mention)
@@ -51,8 +55,8 @@ def ip_command(message, handler, args):
 
 def dictionary_command(message, handler, args):
     try:
-        app_id = "XXX"
-        app_key = "XXX"
+        app_id = settings["dic_app_id"]
+        app_key = settings["dic_app_key"]
         language = 'en'
         word_id = args[0]
         url = 'https://od-api.oxforddictionaries.com:443/api/v1/entries/'  + language + '/'  + word_id.lower()

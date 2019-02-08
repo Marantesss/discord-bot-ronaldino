@@ -10,12 +10,17 @@ import discord
 from command_handler import CommandHandler
 # A module containing a list of all commands
 import commands
+import json
+
+# getting top secret information
+with open("src/settings.json") as settingsFile:
+	settings = json.load(settingsFile)
 
 # create discord client
 client = discord.Client()
 
 # bot token
-token = "XXX"
+token = settings["bot_token"]
 
 # create the CommandHandler object and pass it the client
 ch = CommandHandler(client)
@@ -23,7 +28,6 @@ ch = CommandHandler(client)
 '''
 Creating commands for the bot
 '''
-
 ## help command
 ch.add_command({
     "trigger": "+help",
