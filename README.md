@@ -1,5 +1,17 @@
 # RonalDino Discord Bot
 
+## APIs Used
+
+### IP-API
+```
+http://ip-api.com/
+```
+
+### Oxford Dictionary
+```
+https://developer.oxforddictionaries.com/
+```
+
 ## Stuff I needed to do
 
 ### discord.py

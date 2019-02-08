@@ -15,7 +15,7 @@ import commands
 client = discord.Client()
 
 # bot token
-token = "XXXXXX"
+token = "XXX"
 
 # create the CommandHandler object and pass it the client
 ch = CommandHandler(client)
@@ -56,6 +56,14 @@ ch.add_command({
     "args_name": ["IP/Domain"],
     "description": "Feel like a hacker? I will tell you everything I can about an IP address!"
 })
+## dictionary command
+ch.add_command({
+    "trigger": "+dictionary",
+    "function": commands.dictionary_command,
+    "args_num": 1,
+    "args_name": ["Word"],
+    "description": "Want to know the meaing of a word? Give this command a try and let me enlighten you!"
+})
 ## weather command
 ch.add_command({
     "trigger": "+weather",
@@ -64,6 +72,7 @@ ch.add_command({
     "args_name": ["Location"],
     "description": "Oh crap, is it raining outside? Why bother looking out the window when you can simply ask me!"
 })
+
 
 # bot is ready
 @client.event
