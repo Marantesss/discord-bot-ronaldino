@@ -1,18 +1,23 @@
 # This module contains a list of all commands the bot can respond to
 # Please feel free to give sugestions as well as correct some stuff
 
-import requests
 import json
+# Allows to send http requests
+import requests
+# OpeanWeatherMap API written in python
+from pyowm import OWM
 
 # getting top secret information
 with open("settings.json") as settingsFile:
 	settings = json.load(settingsFile)
+
 
 def hello_command(message, handler, args):
     try:
         return "Hello {}, have a wonderful day :ok_hand:".format(message.author.mention)
     except Exception as e:
         print(e)
+
 
 def info_command(message, handler, args):
     try:
@@ -23,6 +28,7 @@ def info_command(message, handler, args):
         return msg
     except Exception as e:
         print(e)
+
 
 def help_command(message, handler, args):
     try:
@@ -35,6 +41,7 @@ def help_command(message, handler, args):
     except Exception as e:
         print(e)
     
+
 def ip_command(message, handler, args):
     try:
         req = requests.get('http://ip-api.com/json/{}'.format(args[0]))
@@ -50,7 +57,6 @@ def ip_command(message, handler, args):
             return ':no_entry: **HTTP Request Failed** :no_entry: : Error {}'.format(req.status_code)
     except Exception as e:
         print(e)
-
 
 
 def dictionary_command(message, handler, args):
@@ -76,6 +82,7 @@ def dictionary_command(message, handler, args):
     except Exception as e:
         print(e)
 
+
 def birthday_command(message, handler, args):
     try:
         with open("birthdays.json") as birthdaysFile:
@@ -95,8 +102,25 @@ def birthday_command(message, handler, args):
     except Exception as e:
         print(e)
 
+
 def weather_command(message, handler, args):
     try:
-        return ":no_entry: Yikes :no_entry:\n:tools: `weather_command` is under construction :tools:"
+        open_weather_map = OWM(settings["open_weather_key"])
+        if  open_weather_map.is_API_online():
+            # observation
+            query = args[0] + ", " + args[1]
+            obs = open_weather_map.weather_at_place(query)
+            # weather
+            weather = obs.get_weather()
+            wind = weather.get_wind()
+            temp = weather.get_temperature(unit="celsius")
+            #location
+            loc = obs.get_location()
+            msg = ":partly_sunny: **Weather** :thunder_cloud_rain:\n"
+            msg += "**City:** {}\t**Country:** {}\n**Latitude:** {}\t**Longitude:** {}\n**Status:** {}\n**Temperature** :thermometer:\n**Average:** {}ºC\t**Max:** {}ºC\t**Min:** {}ºC\n**Wind:** {}m/s"
+            msg = msg.format(loc.get_name(), args[1].upper(), loc.get_lat(), loc.get_lon(), weather.get_detailed_status(), temp["temp"], temp["temp_max"], temp["temp_min"], wind["speed"])
+            return msg
+        else:
+            return ":no_entry: **ERROR** :no_entry: : OpeanWeatherMap API is offline!"
     except Exception as e:
         print(e)

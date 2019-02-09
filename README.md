@@ -14,9 +14,14 @@ http://ip-api.com/
 https://developer.oxforddictionaries.com/
 ```
 
+### OpenWeatherMap API
+```
+https://openweathermap.org/api
+```
+
 ## Stuff I needed to do
 
-### discord.py
+### <span>discord.py</span>
 ```
 python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/async.zip#egg=discord.py[voice]
 ```
@@ -28,6 +33,12 @@ pip install websockets==6.0
 ```
 
 ### aiohttp
+
+```
+pip install aiohttp==3.5.4
+```
+
+### [pyowm](https://github.com/csparpa/pyowm) an OpeanWeatherMap API written in python
 
 ```
 pip install aiohttp==3.5.4

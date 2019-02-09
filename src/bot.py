@@ -1,16 +1,16 @@
 #
 #   Name: discord-bot-ronaldino
 #   Author: Goncalo "Marantesss" Marantes
-#   Version: 0.2
+#   Version: 0.2.1
 #
 
+import json
 # An API wrapper for Discord written in Python.
 import discord
 # A module containing a class for command handling
 from command_handler import CommandHandler
 # A module containing a list of all commands
 import commands
-import json
 
 # getting top secret information
 with open("settings.json") as settingsFile:
@@ -68,7 +68,7 @@ ch.add_command({
     "args_name": ["Word"],
     "description": "Want to know the meaing of a word? Give this command a try and let me enlighten you!"
 })
-## birtday command
+## birthday command
 ch.add_command({
     "trigger": "+birthday",
     "function": commands.birthday_command,
@@ -80,8 +80,8 @@ ch.add_command({
 ch.add_command({
     "trigger": "+weather",
     "function": commands.weather_command,
-    "args_num": 1,
-    "args_name": ["Location"],
+    "args_num": 2,
+    "args_name": ["City", "Country Code"],
     "description": "Oh crap, is it raining outside? Why bother looking out the window when you can simply ask me!"
 })
 

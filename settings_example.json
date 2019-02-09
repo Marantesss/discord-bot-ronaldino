@@ -1,0 +1,7 @@
+{
+	"bot_id": "Your Bot ID",
+	"bot_token": "Your Bot Token",
+    "dic_app_id": "IDs",
+    "dic_app_key": "API Key",
+    "open_weather_key": "API Key"
+}
