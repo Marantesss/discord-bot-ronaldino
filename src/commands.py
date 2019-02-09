@@ -76,6 +76,25 @@ def dictionary_command(message, handler, args):
     except Exception as e:
         print(e)
 
+def birthday_command(message, handler, args):
+    try:
+        with open("birthdays.json") as birthdaysFile:
+	        birthdays = json.load(birthdaysFile)
+        # checking if we want to see all birtdays
+        msg = ":gift: **Birthdays** :birthday:\n"
+        if args[0] == "all":
+            for name, date in birthdays.items():
+                msg += "**{0}:** :arrow_right: {1} de {4} - {1}/{2}/{3}\n".format(name, date[0], date[1], date[2], date[3])
+            return msg
+        elif args[0] in birthdays:
+            date = birthdays[args[0]]
+            msg += "**{0}:** :arrow_right: {1} de {4} - {1}/{2}/{3}".format(args[0], date[0], date[1], date[2], date[3])
+            return msg
+        else:
+            return ":no_entry: **ERROR** :no_entry: : No info on {}'s birthday".format(args[0])
+    except Exception as e:
+        print(e)
+
 def weather_command(message, handler, args):
     try:
         return ":no_entry: Yikes :no_entry:\n:tools: `weather_command` is under construction :tools:"

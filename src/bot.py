@@ -68,6 +68,14 @@ ch.add_command({
     "args_name": ["Word"],
     "description": "Want to know the meaing of a word? Give this command a try and let me enlighten you!"
 })
+## birtday command
+ch.add_command({
+    "trigger": "+birthday",
+    "function": commands.birthday_command,
+    "args_num": 1,
+    "args_name": ["Birthday boy's name or 'all'"],
+    "description": "Never forget your friends' birthday!"
+})
 ## weather command
 ch.add_command({
     "trigger": "+weather",
