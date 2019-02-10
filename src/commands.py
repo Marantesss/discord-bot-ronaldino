@@ -1,16 +1,20 @@
 # This module contains a list of all commands the bot can respond to
 # Please feel free to give sugestions as well as correct some stuff
 
+import os
 import json
+from json.decoder import JSONDecodeError
 # Allows to send http requests
 import requests
 # OpeanWeatherMap API written in python
 from pyowm import OWM
+# spotify API written in python
+import spotipy
+import spotipy.util as util
 
 # getting top secret information
 with open("settings.json") as settingsFile:
 	settings = json.load(settingsFile)
-
 
 def hello_command(message, handler, args):
     try:
@@ -122,5 +126,18 @@ def weather_command(message, handler, args):
             return msg
         else:
             return ":no_entry: **ERROR** :no_entry: : OpeanWeatherMap API is offline!"
+    except Exception as e:
+        print(e)
+
+def spotify_command(message, handler, args):
+    try:
+        username = settings["spotify_user_id"]
+        token = util.prompt_for_user_token(username, None, settings["spotify_client_id"], settings["spotify_client_secret"], settings["spotify_redirect_uri"])
+        spotify = spotipy.Spotify(auth=token)
+        user = spotify.current_user()
+        return json.dumps(user, sort_keys=True, indent=4)
+    except (AttributeError, JSONDecodeError):
+        os.remove(f".cache-{username}")
+        token = util.prompt_for_user_token(settings["spotify_user_id"], None, settings["spotify_client_id"], settings["spotify_client_secret"], settings["spotify_redirect_uri"])
     except Exception as e:
         print(e)

@@ -19,6 +19,11 @@ https://developer.oxforddictionaries.com/
 https://openweathermap.org/api
 ```
 
+### Spotify Web API
+```
+https://developer.spotify.com/documentation/web-api/
+```
+
 ## Stuff I needed to do
 
 ### <span>discord.py</span>
@@ -41,7 +46,13 @@ pip install aiohttp==3.5.4
 ### [pyowm](https://github.com/csparpa/pyowm) an OpeanWeatherMap API written in python
 
 ```
-pip install aiohttp==3.5.4
+pip install pyowm
+```
+
+### [spotipy](https://github.com/plamere/spotipy)
+
+```
+pip install spotipy
 ```
 
 ## Acknowledgments

@@ -2,3 +2,4 @@ src/__pycache__/
 res/
 settings.json
 birthdays.json
+.cache*

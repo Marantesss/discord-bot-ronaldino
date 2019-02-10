@@ -84,6 +84,14 @@ ch.add_command({
     "args_name": ["City", "Country Code"],
     "description": "Oh crap, is it raining outside? Why bother looking out the window when you can simply ask me!"
 })
+## spotify command
+ch.add_command({
+    "trigger": "+spotify",
+    "function": commands.spotify_command,
+    "args_num": 1,
+    "args_name": ["Search Query"],
+    "description": "How about some music baby?"
+})
 
 
 # bot is ready
