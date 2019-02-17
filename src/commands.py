@@ -11,10 +11,26 @@ from pyowm import OWM
 # spotify API written in python
 import spotipy
 import spotipy.util as util
+import ast
 
 # getting top secret information
 with open("settings.json") as settingsFile:
 	settings = json.load(settingsFile)
+
+# 'logging in' to spotify
+try:
+    username = settings["spotify_user_id"]
+    if os.path.isfile(f".cache-{username}"):
+        with open(f".cache-{username}") as cache:
+            s = cache.read()
+            token = s[18:164]
+    else:
+        token = util.prompt_for_user_token(username, None, settings["spotify_client_id"], settings["spotify_client_secret"], settings["spotify_redirect_uri"])
+    spotify = spotipy.Spotify(auth=token)
+except (AttributeError, JSONDecodeError):
+        os.remove(f".cache-{username}")
+        token = util.prompt_for_user_token(settings["spotify_user_id"], None, settings["spotify_client_id"], settings["spotify_client_secret"], settings["spotify_redirect_uri"])
+        spotify = spotipy.Spotify(auth=token)
 
 def hello_command(message, handler, args):
     try:
@@ -131,13 +147,12 @@ def weather_command(message, handler, args):
 
 def spotify_command(message, handler, args):
     try:
-        username = settings["spotify_user_id"]
-        token = util.prompt_for_user_token(username, None, settings["spotify_client_id"], settings["spotify_client_secret"], settings["spotify_redirect_uri"])
-        spotify = spotipy.Spotify(auth=token)
-        user = spotify.current_user()
-        return json.dumps(user, sort_keys=True, indent=4)
-    except (AttributeError, JSONDecodeError):
-        os.remove(f".cache-{username}")
-        token = util.prompt_for_user_token(settings["spotify_user_id"], None, settings["spotify_client_id"], settings["spotify_client_secret"], settings["spotify_redirect_uri"])
+        # getting the full search string and search results
+        searchResults = spotify.search(" ".join(args),1,0,"artist")
+        # getting info from JSON file
+        artistInfo = searchResults["artists"]["items"][0]
+        msg = ":musical_note: **Artist** :microphone:\n"
+        msg += "**Name:** {}\n**Genres:** {}\n**Followers:** {}\n**Image:** {}".format(artistInfo["name"], artistInfo["genres"], artistInfo["followers"]["total"], artistInfo["images"][0]["url"])
+        return msg
     except Exception as e:
         print(e)

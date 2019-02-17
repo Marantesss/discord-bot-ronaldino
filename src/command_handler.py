@@ -1,5 +1,6 @@
-# defining the command handler class
+from discord.utils import get
 
+# defining the command handler class
 class CommandHandler:
     """A class used to handle events"""
     # Creating a command handler

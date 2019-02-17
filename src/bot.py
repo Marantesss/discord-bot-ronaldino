@@ -16,14 +16,14 @@ import commands
 with open("settings.json") as settingsFile:
 	settings = json.load(settingsFile)
 
-# create discord client
-client = discord.Client()
+# create discord bot client
+ronaldino = discord.Client()
 
 # bot token
 token = settings["bot_token"]
 
 # create the CommandHandler object and pass it the client
-ch = CommandHandler(client)
+ch = CommandHandler(ronaldino)
 
 '''
 Creating commands for the bot
@@ -95,24 +95,24 @@ ch.add_command({
 
 
 # bot is ready
-@client.event
+@ronaldino.event
 async def on_ready():
     try:
         # print bot information
-        print(client.user.name)
-        print(client.user.id)
+        print(ronaldino.user.name)
+        print(ronaldino.user.id)
         print("Discord.py Version: {}".format(discord.__version__))
-        await client.change_presence(game=discord.Game(name="Under construction"))
+        await ronaldino.change_presence(game=discord.Game(name="Under construction"))
         
     except Exception as e:
         print(e)
 
 # on new message
-@client.event
+@ronaldino.event
 async def on_message(message):
     # we do not want the bot to respond to itself, duh
-    if message.author == client.user:
-        return
+    if message.author == ronaldino.user:
+        await ronaldino.add_reaction(message, "\U0001F44C")
     # but we do want it to respond to other clients
     else:
         # looking for a command trigger
@@ -126,6 +126,5 @@ async def on_message(message):
         except Exception as e:
             print(e)
         
-
 # start bot
-client.run(token)
+ronaldino.run(token)
