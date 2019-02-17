@@ -11,6 +11,8 @@ import discord
 from command_handler import CommandHandler
 # A module containing a list of all commands
 import commands
+# A module containing all spotify commands
+import spotify
 
 # getting top secret information
 with open("settings.json") as settingsFile:
@@ -87,7 +89,7 @@ ch.add_command({
 ## spotify command
 ch.add_command({
     "trigger": "+spotify",
-    "function": commands.spotify_command,
+    "function": spotify.spotify_command,
     "args_num": 1,
     "args_name": ["Search Query"],
     "description": "How about some music baby?"
@@ -110,7 +112,7 @@ async def on_ready():
 # on new message
 @ronaldino.event
 async def on_message(message):
-    # we do not want the bot to respond to itself, duh
+    # we do not want the bot to respond to itself, but we are in it for the memes
     if message.author == ronaldino.user:
         await ronaldino.add_reaction(message, "\U0001F44C")
     # but we do want it to respond to other clients
@@ -124,7 +126,9 @@ async def on_message(message):
             pass
         # generic Python error
         except Exception as e:
-            print(e)
+            template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+            message = template.format(type(e).__name__, e.args)
+            print(message)
         
 # start bot
 ronaldino.run(token)
