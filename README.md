@@ -55,6 +55,12 @@ pip install pyowm
 pip install spotipy
 ```
 
+### youtuibe_dl
+
+```
+pip install youtube_dl
+```
+
 ## Acknowledgments
 
 * Hat tip to [Areadrill](https://github.com/Areadrill)

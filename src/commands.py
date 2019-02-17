@@ -6,6 +6,7 @@ import json
 import requests
 # OpeanWeatherMap API written in python
 from pyowm import OWM
+import asyncio
 
 # getting top secret information
 with open("settings.json") as settingsFile:
@@ -135,3 +136,15 @@ def weather_command(message, handler, args):
         message = template.format(type(e).__name__, e.args)
         print(message)
 
+def youtube_command(message, handler, args):
+    try:
+        '''
+        voice = handler.client.join_voice_channel(message.author.voice_channel)
+        player = voice.create_ytdl_player('https://www.youtube.com/watch?v=d62TYemN6MQ')
+        player.start()
+        '''
+        return ":microphone: Lets Rock 'n Roll :notes:"
+    except Exception as e:
+        template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+        message = template.format(type(e).__name__, e.args)
+        print(message)

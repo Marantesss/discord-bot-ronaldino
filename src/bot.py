@@ -19,6 +19,7 @@ with open("settings.json") as settingsFile:
 	settings = json.load(settingsFile)
 
 # create discord bot client
+global ronaldino
 ronaldino = discord.Client()
 
 # bot token
@@ -94,6 +95,14 @@ ch.add_command({
     "args_name": ["Search Query"],
     "description": "How about some music baby?"
 })
+## spotify command
+ch.add_command({
+    "trigger": "+youtube",
+    "function": commands.youtube_command,
+    "args_num": 1,
+    "args_name": ["Video URL"],
+    "description": "How about some music baby? - powered by YouTube"
+})
 
 
 # bot is ready
@@ -105,7 +114,6 @@ async def on_ready():
         print(ronaldino.user.id)
         print("Discord.py Version: {}".format(discord.__version__))
         await ronaldino.change_presence(game=discord.Game(name="Under construction"))
-        
     except Exception as e:
         print(e)
 
@@ -120,6 +128,11 @@ async def on_message(message):
         # looking for a command trigger
         try:
             await ch.command_handler(message)
+            '''
+            voice = await ronaldino.join_voice_channel(message.author.voice_channel)
+            player = await voice.create_ytdl_player('https://www.youtube.com/watch?v=8RN-f3vZVRo')
+            player.start()
+            '''
         # message does not contain a trigger
         except TypeError:
             # do nothing

@@ -39,7 +39,6 @@ def spotify_log_in(username):
         # if not then we need to create the cache file
         else:
             token = util.prompt_for_user_token(username, scope, client_id, client_secret, redirect_uri)
-        print(token)
         return spotipy.Spotify(auth=token)
     except (AttributeError, JSONDecodeError):
         os.remove(f".cache-{username}")
@@ -52,10 +51,8 @@ spotify = spotify_log_in(username)
 def refresh_token():
     global spotify
     cached_token = spotify_auth.get_cached_token()
-    print(cached_token)
     refreshed_token = cached_token['refresh_token']
     new_token = spotify_auth.refresh_access_token(refreshed_token)
-    print(new_token)
     # also we need to specifically pass `auth=new_token['access_token']`
     spotify = spotipy.Spotify(auth=new_token['access_token'])
 
